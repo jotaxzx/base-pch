@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
     root: {
         height: '80vh',
         
-
     },
 
     palette: {
@@ -23,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
     },
 
     paper: {
-        margin: theme.spacing(4, 4),
+        margin: theme.spacing(3, 4),
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',

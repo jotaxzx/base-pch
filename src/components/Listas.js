@@ -1,5 +1,8 @@
-import React from 'react'
-import {List, ListItemIcon, ListItem, ListItemText, Divider, Container} from '@material-ui/core';
+import React, { useState } from 'react'
+import {List, ListItemIcon, ListItem, ListItemText, Divider, Container, Menu, MenuItem, Button } from '@material-ui/core';
+
+import Fade from '@material-ui/core/Fade';
+
 import SupervisorAccountIcon from '@material-ui/icons/SupervisorAccount';
 import LibraryBooksIcon from '@material-ui/icons/LibraryBooks';
 import BuildIcon from '@material-ui/icons/Build';
@@ -20,7 +23,9 @@ import {
 } from 'react-router-dom';
 import FormMultiplesRut from './FormMultiplesRut';
 import FormInfoCom from './FormInfoCom';
-import FormPrueba from './FormPrueba';
+
+
+import RegistroConsultas from './RegistroConsultas';
 
 const drawerWidth = 310;
 const useStyle = makeStyles( theme=>({
@@ -29,6 +34,12 @@ const useStyle = makeStyles( theme=>({
         flexShrink: 0,
         whiteSpace: 'nowrap',
       },
+      drawerPaper: {
+        link: {
+          textDecoration: 'none',
+          color: theme.palette.text.primary,
+        }
+      },
       drawerOpen: {
         width: drawerWidth,
         transition: theme.transitions.create('width', {
@@ -36,6 +47,7 @@ const useStyle = makeStyles( theme=>({
           duration: theme.transitions.duration.enteringScreen,
         }),
       },
+    
       drawerClose: {
         transition: theme.transitions.create('width', {
           easing: theme.transitions.easing.sharp,
@@ -65,21 +77,39 @@ const useStyle = makeStyles( theme=>({
 const Listas = ({open, handleDrawerClose}) => {
     const theme = useTheme();
     const classes = useStyle()
+
+    const [anchorEl, setAnchorEl] = useState(null);
+    const abrir = Boolean(anchorEl);
+
+    const handleClick = (event) => {
+      setAnchorEl(event.currentTarget);
+    };
+  
+    const handleClose = () => {
+      setAnchorEl(null);
+    };
+
+
     return (
         <>
      <BrowserRouter>   
     <Drawer
         variant="permanent" 
-        className={clsx(classes.drawer, {
+        className={clsx(classes.drawer,
+            {
           [classes.drawerOpen]: open,
           [classes.drawerClose]: !open,
+          
+          
         })}
         classes={{
           paper: clsx({
             [classes.drawerOpen]: open,
             [classes.drawerClose]: !open,
+            
           }),
         }}
+        
       >
        
         <div className={classes.toolbar}>
@@ -94,16 +124,16 @@ const Listas = ({open, handleDrawerClose}) => {
 
 
     <List>
-        <Link to="/informecomercial">
+        <Link to="/informecomercial" style={{textDecoration: 'none', color: theme.palette.text.primary}}>
         <ListItem button>
                     <ListItemIcon>
                         <LibraryBooksIcon/>
                     </ListItemIcon>
-                    <ListItemText primary='Informe Comercial'/>
+                    <ListItemText primary='Informe Comercial' />
                 </ListItem>
         </Link>   
         
-        <Link to="/consultamultiple">
+        <Link to="/consultamultiple" style={{textDecoration: 'none', color: theme.palette.text.primary}}>
         <ListItem button>
                     <ListItemIcon>
                         <FindInPageIcon/>
@@ -111,15 +141,17 @@ const Listas = ({open, handleDrawerClose}) => {
                     <ListItemText primary='Consulta Multiple'/>
           </ListItem>
           </Link>
-          <Link to="/administracion">
+          <Link to="/administracion" style={{textDecoration: 'none', color: theme.palette.text.primary}}>
           <ListItem button>
                     <ListItemIcon>
                         <SupervisorAccountIcon/>
                     </ListItemIcon>
-                    <ListItemText primary='Administración'/>
+                    <ListItemText primary='Administración'>
+                        
+                    </ListItemText>
                 </ListItem>
             </Link>
-            <Link to="/soporte">
+            <Link to="/soporte" style={{textDecoration: 'none', color: theme.palette.text.primary}}>
            <ListItem button>
                     <ListItemIcon>
                         <BuildIcon/>
@@ -127,12 +159,12 @@ const Listas = ({open, handleDrawerClose}) => {
                     <ListItemText primary='Soporte'/>
                 </ListItem>
             </Link>
-            <Link to="/verificacion">
+            <Link to="/verificacion" style={{textDecoration: 'none', color: theme.palette.text.primary}}>
                 <ListItem button>
                     <ListItemIcon>
                         <CheckCircleIcon/>
                     </ListItemIcon>
-                    <ListItemText primary='Verificacion de Cheques y ONP'     />
+                    <ListItemText primary='Verificacion de Cheques y ONP'/>
                 </ListItem>
             </Link> 
     </List> 
@@ -146,7 +178,7 @@ const Listas = ({open, handleDrawerClose}) => {
          <Route exact path="/informecomercial" component={ FormInfoCom }/>
          
          <Route exact path="/consultamultiple" component={ FormMultiplesRut }/>
-         <Route exact path="/administracion" component={FormPrueba}/>
+         <Route exact path="/administracion" component={RegistroConsultas}/>
          <Route exact path="/soporte"/>
          <Route exact path="/verificacion"/>
     </main>
